@@ -1,5 +1,7 @@
 {
   "name": "ambulance-allocation-app",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
