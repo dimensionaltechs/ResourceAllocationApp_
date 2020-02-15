@@ -9,20 +9,20 @@
   </ion-header>
   
   <ion-content class="ion-padding">
-    <form class="form">
+    <form [formGroup]="simple_form">
       <ion-item>
         <ion-label>Latitude: </ion-label>
-        <ion-input type="text" value={{lati}}></ion-input>
+        <ion-input type="text" formControlName="latitude" value={{lati}}></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Longitude: </ion-label>
-        <ion-input type="text" value={{long}}></ion-input>
+        <ion-input type="text" formControlName="longitude" value={{long}}></ion-input>
        </ion-item>
       <ion-item>
         <ion-label position="floating">Please enter status of you task(s)</ion-label>
-        <ion-textarea rows="5"></ion-textarea>
+        <ion-textarea rows="5" formControlName="tech_message"></ion-textarea>
       </ion-item>
-      <ion-button class="submit-btn" expand="block" type="submit">Update My Location</ion-button>
+      <ion-button class="submit-btn" expand="block" (click)="addToDB(simple_form.value)" type="submit">Update My Location</ion-button>
     </form>
     <!-- Map container -->
     <div id="map_canvas">
