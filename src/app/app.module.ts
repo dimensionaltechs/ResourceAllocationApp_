@@ -16,8 +16,15 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 
+import { HomePage } from './home/home.page';
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: 
+  [
+    AppComponent,
+    LoginComponent 
+  ],
   entryComponents: [],
   
   imports: [
