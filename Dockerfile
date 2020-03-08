@@ -74,7 +74,7 @@ RUN cordova telemetry off
 RUN npm install
 RUN npm audit Fix
 RUN npm fund
-RUN npm audit fix
+RUN npm audit
 WORKDIR Sources
 EXPOSE 8100 35729
 CMD ["ionic", "serve"]
