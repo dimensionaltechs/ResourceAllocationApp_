@@ -10,13 +10,28 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
+import { HttpClientModule } from '@angular/common/http';
+import { FirebaseService } from './services/firebase.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  
+  imports: [
+    BrowserModule, 
+    HttpClientModule,
+    IonicModule.forRoot(),
+    AngularFireModule.initializeApp(environment, 'AmbulanceAllocationApp'),
+    AppRoutingModule],
+
   providers: [
     StatusBar,
     SplashScreen,
+    FirebaseService,
+    AngularFirestore,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation
   ],

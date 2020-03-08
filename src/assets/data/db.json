@@ -1,0 +1,19 @@
+{
+    "technicians": [
+        {
+            "id": "tech-001",
+            "latitude": "44.111",
+            "longitude": "-22.434"
+        },
+        {
+            "id": "tech-002",
+            "latitude": "44.222",
+            "longitude": "-22.434"
+        },
+        {
+            "id": "tech-003",
+            "latitude": "44.333",
+            "longitude": "-22.434"
+        }
+    ]
+}
