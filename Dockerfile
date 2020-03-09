@@ -71,28 +71,7 @@ ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/gradl
 # Install Android SDK
 RUN yes Y | ${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;29.0.2" "platforms;android-29" "platform-tools"
 RUN cordova telemetry off
-#WORKDIR Sources
-
-# INSTALL GLIBC
-RUN curl -L https://raw.githubusercontent.com/wassim6/alpine-pkg-glibc/master/sgerrand.rsa.pub > /etc/apk/keys/sgerrand.rsa.pub && \
-  curl -L ${GLIB_PACKAGE_BASE_URL}/${GLIB_VERSION}/glibc-${GLIB_VERSION}.apk > /tmp/glibc.apk && \
-  curl -L ${GLIB_PACKAGE_BASE_URL}/${GLIB_VERSION}/glibc-bin-${GLIB_VERSION}.apk > /tmp/glibc-bin.apk && \
-  apk add /tmp/glibc-bin.apk /tmp/glibc.apk
-  # CONFIGURATION
-RUN echo y | android update sdk --no-ui -a --filter platform-tools,${ANDROID_API_LEVELS},build-tools-${ANDROID_BUILD_TOOLS_VERSION}
-
-# Make license agreement
-RUN mkdir $ANDROID_HOME/licenses && \
-    echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > $ANDROID_HOME/licenses/android-sdk-license && \
-    echo d56f5187479451eabf01fb78af6dfcb131a6481e >> $ANDROID_HOME/licenses/android-sdk-license && \
-    echo 24333f8a63b6825ea9c5514f83c2829b004d1fee >> $ANDROID_HOME/licenses/android-sdk-license && \
-    echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
-
-
-#FILES DELETION
-RUN rm -rf /tmp/* /var/cache/apk/*
-
-RUN npm install
+WORKDIR Sources
 EXPOSE 8100 35729
 CMD ["ionic", "serve"]
 COPY . .
