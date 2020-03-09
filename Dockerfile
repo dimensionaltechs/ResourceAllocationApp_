@@ -71,10 +71,6 @@ ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/gradl
 # Install Android SDK
 RUN yes Y | ${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;29.0.2" "platforms;android-29" "platform-tools"
 RUN cordova telemetry off
-RUN npm install
-RUN npm audit fix
-RUN npm fund
-RUN npm audit
 WORKDIR Sources
 EXPOSE 8100 35729
 CMD ["ionic", "serve"]
