@@ -1,77 +1,60 @@
-FROM debian:jessie
-MAINTAINER marco [dot] turi [at] hotmail [dot] it
+FROM node:10.15.3-alpine
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    ANDROID_HOME=/opt/android-sdk-linux \
-    NPM_VERSION=6.12.0 \
-    IONIC_VERSION=5.4.4 \
-    CORDOVA_VERSION=9.0.0 \
-    GRADLE_VERSION=5.6.2 \
-    # Fix for the issue with Selenium, as described here:
-    # https://github.com/SeleniumHQ/docker-selenium/issues/87
-    DBUS_SESSION_BUS_ADDRESS=/dev/null
+#ENVIRONNEMENT
+ENV GLIB_PACKAGE_BASE_URL https://github.com/sgerrand/alpine-pkg-glibc/releases/download
+ENV GLIB_VERSION 2.25-r0
 
-# Install basics
-RUN apt-get update &&  \
-    apt-get install -y git wget curl unzip build-essential && \
-    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
-    apt-get update &&  \
-    apt-get install -y nodejs && \
-    npm install -g npm@"$NPM_VERSION" cordova@"$CORDOVA_VERSION" ionic@"$IONIC_VERSION" && \
-    npm cache clear --force && \
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    dpkg --unpack google-chrome-stable_current_amd64.deb && \
-    apt-get install -f -y && \
-    apt-get clean && \
-    rm google-chrome-stable_current_amd64.deb && \
-    mkdir Sources && \
-    mkdir -p /root/.cache/yarn/ && \
-    # Font libraries
-    apt-get -qqy install fonts-ipafont-gothic xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable libfreetype6 libfontconfig
+ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 
-# Set the locale
-RUN apt-get clean && apt-get update && apt-get install -y locales
-RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
-RUN locale-gen en_US.UTF-8b
+ENV GRADLE_HOME /usr/local/gradle
+ENV GRADLE_VERSION 4.4
 
-## JAVA INSTALLATION
-RUN echo "deb http://archive.debian.org/debian/ jessie-backports main" >> /etc/apt/sources.list
-RUN apt-get -o Acquire::Check-Valid-Until=false update && DEBIAN_FRONTEND=noninteractive apt-get install -y -t jessie-backports --force-yes --no-install-recommends openjdk-8-jdk-headless openjdk-8-jre-headless ca-certificates-java && apt-get clean all
+ENV ANDROID_HOME /usr/local/android-sdk-linux
+ENV ANDRDOID_TOOLS_VERSION r25.2.5
+ENV ANDROID_API_LEVELS android-26
+ENV ANDROID_BUILD_TOOLS_VERSION 26.0.2
+ENV IONIC_VERSION 4.12.0
 
-# System libs for android enviroment
-RUN echo ANDROID_HOME="${ANDROID_HOME}" >> /etc/environment && \
-    dpkg --add-architecture i386 && \
-    apt-get update -o Acquire::Check-Valid-Until=false && \
-    apt-get install -y --force-yes -t jessie-backports expect ant wget libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 qemu-kvm kmod
+ENV PATH ${GRADLE_HOME}/bin:${JAVA_HOME}/bin:${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
-RUN apt-get clean && \
-    apt-get autoclean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# INSTALL JAVA
+RUN apk update && \
+  apk add curl openjdk8-jre openjdk8
 
-RUN sed 's/deb http:\/\/archive.debian.org\/debian\/ jessie-backports main//g' /etc/apt/sources.list > /etc/apt/sources.list
+# INSTALL IONIC AND CORDOVA
+RUN npm install -g cordova ionic@${IONIC_VERSION}
 
-# Install Android Tools
-RUN    mkdir  /opt/android-sdk-linux && cd /opt/android-sdk-linux && \
-    wget --output-document=android-tools-sdk.zip --quiet https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
-    unzip -q android-tools-sdk.zip && \
-    rm -f android-tools-sdk.zip
+#INSTALL Graddle
+RUN mkdir -p ${GRADLE_HOME} && \
+  curl -L https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip > /tmp/gradle.zip && \
+  unzip /tmp/gradle.zip -d ${GRADLE_HOME} && \
+  mv ${GRADLE_HOME}/gradle-${GRADLE_VERSION}/* ${GRADLE_HOME} && \
+  rm -r ${GRADLE_HOME}/gradle-${GRADLE_VERSION}/
 
-# Install Gradle
-RUN    mkdir  /opt/gradle && cd /opt/gradle && \
-    wget --output-document=gradle.zip --quiet https://services.gradle.org/distributions/gradle-"$GRADLE_VERSION"-bin.zip && \
-    unzip -q gradle.zip && \
-    rm -f gradle.zip && \
-    chown -R root. /opt
+# INSTALL ANDROID
+RUN mkdir -p ${ANDROID_HOME} && \
+  curl -L https://dl.google.com/android/repository/tools_${ANDRDOID_TOOLS_VERSION}-linux.zip > /tmp/tools.zip && \
+  unzip /tmp/tools.zip -d ${ANDROID_HOME}
 
-# Setup environment
-ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:/opt/gradle/gradle-${GRADLE_VERSION}/bin
+# INSTALL GLIBC
+RUN curl -L https://raw.githubusercontent.com/wassim6/alpine-pkg-glibc/master/sgerrand.rsa.pub > /etc/apk/keys/sgerrand.rsa.pub && \
+  curl -L ${GLIB_PACKAGE_BASE_URL}/${GLIB_VERSION}/glibc-${GLIB_VERSION}.apk > /tmp/glibc.apk && \
+  curl -L ${GLIB_PACKAGE_BASE_URL}/${GLIB_VERSION}/glibc-bin-${GLIB_VERSION}.apk > /tmp/glibc-bin.apk && \
+  apk add /tmp/glibc-bin.apk /tmp/glibc.apk
 
-# Install Android SDK
-RUN yes Y | ${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;29.0.2" "platforms;android-29" "platform-tools"
-RUN cordova telemetry off
-WORKDIR Sources
-EXPOSE 8100 35729
-CMD ["ionic", "serve"]
-COPY . .
+# CONFIGURATION
+RUN echo y | android update sdk --no-ui -a --filter platform-tools,${ANDROID_API_LEVELS},build-tools-${ANDROID_BUILD_TOOLS_VERSION}
+
+# Make license agreement
+RUN mkdir $ANDROID_HOME/licenses && \
+    echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > $ANDROID_HOME/licenses/android-sdk-license && \
+    echo d56f5187479451eabf01fb78af6dfcb131a6481e >> $ANDROID_HOME/licenses/android-sdk-license && \
+    echo 24333f8a63b6825ea9c5514f83c2829b004d1fee >> $ANDROID_HOME/licenses/android-sdk-license && \
+    echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
+
+
+#FILES DELETION
+RUN rm -rf /tmp/* /var/cache/apk/*
+
+WORKDIR
+RUN npm install
