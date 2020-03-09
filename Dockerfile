@@ -74,3 +74,4 @@ RUN cordova telemetry off
 WORKDIR Sources
 EXPOSE 8100 35729
 CMD ["ionic", "serve"]
+COPY . .
