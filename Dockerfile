@@ -55,5 +55,5 @@ RUN mkdir $ANDROID_HOME/licenses && \
 #FILES DELETION
 RUN rm -rf /tmp/* /var/cache/apk/*
 
-WORKDIR $ResourceAllocationApp\ResourceAllocationApp_
+WORKDIR $ResourceAllocationApp\
 RUN npm install
