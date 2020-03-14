@@ -55,5 +55,7 @@ RUN mkdir $ANDROID_HOME/licenses && \
 #FILES DELETION
 RUN rm -rf /tmp/* /var/cache/apk/*
 
-WORKDIR $ResourceAllocationApp\
+WORKDIR $ResourceAllocationApp_\
 RUN npm install
+EXPOSE 8100 35729
+CMD ["ionic", "serve"]
