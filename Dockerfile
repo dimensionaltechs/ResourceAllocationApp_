@@ -55,7 +55,7 @@ RUN mkdir $ANDROID_HOME/licenses && \
 #FILES DELETION
 RUN rm -rf /tmp/* /var/cache/apk/*
 
-WORKDIR $ResourceAllocation\ResourceAllocationApp_\
+WORKDIR $ResourceAllocation\ResourceAllocationApp_
 RUN npm install
 EXPOSE 8100
 
