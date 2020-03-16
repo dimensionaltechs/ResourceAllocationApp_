@@ -16,7 +16,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 
-import { HomePage } from './home/home.page';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';

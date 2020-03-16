@@ -4,16 +4,6 @@ import { Platform, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FirebaseService } from '../services/firebase.service';
 
-import {
-    GoogleMap,
-    GoogleMaps,
-    GoogleMapsEvent,
-    Marker,
-    GoogleMapsAnimation,
-    MyLocation,
-    GoogleMapOptions
-} from '@ionic-native/google-maps';
-
 declare var google;
 
 @Component({
