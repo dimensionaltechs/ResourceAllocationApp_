@@ -32,7 +32,7 @@ export class AppComponent {
     [
       {
         title : "Home",
-        url   : "/home",
+        url   : "/home1",
         icon  : "home"
       },
       {
@@ -48,7 +48,7 @@ export class AppComponent {
       {
         title : "Login",
         url   : "/login",
-        icon  : "login"
+        icon  : "log-in"
       }
     ]
   }
