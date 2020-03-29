@@ -1,8 +1,11 @@
 module.exports = {
   apps : [{
+<<<<<<< HEAD
      name: 'Resource Allocation Mobile',
      script: '',
 
+=======
+>>>>>>> 332b00c6c9c80922c398ac438c4e23867c46745a
     // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
     args: 'one two',
     instances: 1,

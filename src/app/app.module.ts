@@ -16,24 +16,36 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: 
+  [
+      AppComponent,
+      HomeComponent,
+      LoginComponent 
+  ],
   entryComponents: [],
   
   imports: [
-    BrowserModule, 
-    HttpClientModule,
-    IonicModule.forRoot(),
-    AngularFireModule.initializeApp(environment, 'AmbulanceAllocationApp'),
-    AppRoutingModule],
+      BrowserModule, 
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      IonicModule.forRoot(),
+      AngularFireModule.initializeApp(environment, 'AmbulanceAllocationApp'),
+      AppRoutingModule
+    ],
 
   providers: [
-    StatusBar,
-    SplashScreen,
-    FirebaseService,
-    AngularFirestore,
+      StatusBar,
+      SplashScreen,
+      FirebaseService,
+      AngularFirestore,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Geolocation
+      Geolocation
   ],
   bootstrap: [AppComponent]
 })
