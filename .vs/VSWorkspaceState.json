@@ -1,10 +1,17 @@
 {
   "ExpandedNodes": [
+<<<<<<< HEAD
     "\\src",
     "\\src\\app",
     "\\src\\app\\home",
     "\\src\\app\\login",
     "\\src\\app\\services"
   ],
+=======
+    "",
+    "\\src\\app\\home"
+  ],
+  "SelectedNode": "\\package-lock.json",
+>>>>>>> master
   "PreviewInSolutionExplorer": false
 }
