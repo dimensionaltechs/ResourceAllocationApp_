@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
      name: 'Resource Allocation Mobile',
-     script: 'karma.conf.js',
+     script: '',
 
     // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
     args: 'one two',
