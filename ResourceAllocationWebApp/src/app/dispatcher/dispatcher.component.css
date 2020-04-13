@@ -1,0 +1,54 @@
+.map{
+    align-content: center;
+    width: 50%;
+    height: 50%;
+    border-radius: 15px solid;
+}
+
+agm-map {
+    align-content: center;
+    width: 50%;
+    height: 300px;
+    align-content: center;
+  }
+
+.navBardemoBasicUsage{
+    padding: 50px;
+    margin: 20px;
+    background-color: #FFF2E0; }
+
+.ext-content {
+    padding: 50px;
+    margin: 20px;
+    align-content: center;
+    background-color: #FFF2E0; }
+
+.md-content{
+    padding: 50px;
+    margin: 20px;
+    background-color: #FFF2E0; }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+      
+      li {
+        float: left;
+      }
+      
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      
+      /* Change the link color to #111 (black) on hover */
+      li a:hover {
+        background-color: #111;
+      }

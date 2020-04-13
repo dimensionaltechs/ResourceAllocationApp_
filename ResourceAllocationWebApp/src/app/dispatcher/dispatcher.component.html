@@ -1,0 +1,22 @@
+<!-- this creates a google map on the page with the given lat/lng from -->
+<!-- the component as the initial center of the map: -->
+<!-- Map  -->
+
+<div ng-controller="AppCtrl" ng-cloak>
+    <content class="md-padding">
+        <ul>
+          <li><a class="active" href="#home">Home</a></li>
+          <li><a href="#ambulance">Ambulances</a></li>
+          <li><a href="#technician">Technicians</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+        <h1>{{ title }}</h1>
+      <div class="ext-content">
+        Latitude:  <input type="text" formControlName="latitude" value={{lati}}/>
+        Longitude: <input type="text" formControlName="longitude" value={{long}}/>
+        <agm-map [latitude]="lati" [longitude]="long">
+          <agm-marker [latitude]="lati" [longitude]="long"></agm-marker>
+        </agm-map>
+      </div>
+    </content>
+  </div>
