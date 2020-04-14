@@ -1,0 +1,7 @@
+{
+  "name": "resource-allocation-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
