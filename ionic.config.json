@@ -1,5 +1,5 @@
 {
-  "name": "ambulance-allocation-app",
+  "name": "resource-allocation-app",
   "integrations": {
     "cordova": {}
   },
