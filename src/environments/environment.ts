@@ -3,14 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   production: false,
-  apiKey: "AIzaSyBaZWRrDJq_NdI6MZMkQ4JDm96M7ckIjDE",
-  authDomain: "ambulance-alloca-1571082092517.firebaseapp.com",
-  databaseURL: "https://ambulance-alloca-1571082092517.firebaseio.com",
-  projectId: "ambulance-alloca-1571082092517",
-  storageBucket: "ambulance-alloca-1571082092517.appspot.com",
-  messagingSenderId: "51386060214",
-  appId: "1:51386060214:web:d96c4dd3f81e09ce618517",
-  measurementId: "G-BH89XC8G9L"
+  apiKey: "AIzaSyBN7Qba-SP65WCBWLlZm1_TeXFV-75Qnig",
+  authDomain: "technician-allocation.firebaseapp.com",
+  databaseURL: "https://technician-allocation.firebaseio.com",
+  projectId: "technician-allocation",
+  storageBucket: "technician-allocation.appspot.com",
+  messagingSenderId: "329388737190",
+  appId: "1:329388737190:web:cb09ae453d97c2756faa67",
+  measurementId: "G-ZCBB3LFVJK"
 };
 
 /*

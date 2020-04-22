@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit, AfterContentInit {
     }
 
     /**
-     * Sending on screen captred information to the DB
+     * Sending on screen captured information to the DB
      * @param value
      */
     addToDB(value) {
@@ -97,5 +97,6 @@ export class HomeComponent implements OnInit, AfterContentInit {
             }, err => {
                 console.log(err)
             })
+            console.log('Data sent successfully!')
     }
 }
